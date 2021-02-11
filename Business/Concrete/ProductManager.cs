@@ -1,16 +1,13 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
-using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        IProductDal _productDal;
+        private IProductDal _productDal;
 
         public ProductManager(IProductDal productDal)
         {
@@ -19,12 +16,7 @@ namespace Business.Concrete
 
         public List<Product> GetAllByCategoryId(int v)
         {
-            return _productDal.GetAll(p => p.CategoryId == v);
-        }
-
-        private static void NewMethod()
-        {
-            throw new NotImplementedException();
+            return _productDal.GetAll(p => p.CategoryID == v);
         }
 
         public List<Product> GetAll()
@@ -37,7 +29,7 @@ namespace Business.Concrete
 
         public List<Product> GetAlllByCategoryId(int id)
         {
-            return _productDal.GetAll(p => p.CategoryId == id);
+            return _productDal.GetAll(p => p.CategoryID == id);
         }
 
         public List<Product> GetByUnitPrice(decimal min, decimal max)

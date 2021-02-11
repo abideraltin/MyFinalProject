@@ -3,13 +3,12 @@ using System;
 
 namespace Entities.Concrete
 {
-    public class Order :IEntity
+    public class Order : IEntity
     {
-        public int OrdeId { get; set; }
-        public int CustomerId { get; set; }
-        public int EmployeeId { get; set; }
+        public int OrderID { get; set; }
+        public int CustomerID { get; set; }
+        public int EmployeeID { get; set; }
         public DateTime OrderDate { get; set; }
         public string ShipCity { get; set; }
-
     }
 }
