@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Core.DataAccess.EntityFramework
 {
@@ -31,9 +32,9 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity Get(Expression<Func<Product, bool>> filter)
+        public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            using (TContext context = new TContext();
+            using (TContext context = new TContext())
             {
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
