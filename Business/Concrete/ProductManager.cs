@@ -2,16 +2,18 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        private IProductDal _productDal;
+        IProductDal _productDal;
 
         public ProductManager(IProductDal productDal)
         {
@@ -25,7 +27,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-           if (DateTime.Now.Hour==1)
+           if (DateTime.Now.Hour == 1)
            {
              return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
            }
@@ -38,12 +40,37 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Product> ,GetAlllByCategoryId(int id)
+        public iterator <List<Product>, GetAllByCategoryId(int id)
         {
-            return new SuccessDataResult<List<Product>>_productDal.GetAll(p => p.CategoryID == id);
+            return  SuccessDataResult<List<Product>> productDal.GetAll(p => p.CategoryID == id);
+        AssemblyLoadEventArgs 
+        public IDataResult<List<Product>> GetAlllByCategoryId(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<ProductDetailDto>> IProductService.GetProductDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<Product> GetById(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResult Add(Product product)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+        public IDataResult<List<Product>> GetByUnitPrice( decimal min, decimal max)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
