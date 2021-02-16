@@ -62,10 +62,5 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductID == productId));
         }
-
-        IDataResult<List<Product>> IProductService.GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
