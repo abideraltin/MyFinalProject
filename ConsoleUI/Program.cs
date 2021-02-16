@@ -32,9 +32,9 @@ namespace ConsoleUI
 
             var result = productManager.GetProductDetails();
 
-            if (result == true)
+            if (result!=null)
             {
-                foreach (var product in productManager.GetProductDetails().) 
+                foreach (var product in productManager.GetProductDetails())
                 {
                     Console.WriteLine(product.ProductName + "/" + product.CategoryName);
                 }

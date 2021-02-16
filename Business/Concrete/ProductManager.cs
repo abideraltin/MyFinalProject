@@ -7,70 +7,34 @@ using Entities.Concrete;
 using Entities.Dtos;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        IProductDal _productDal;
+        private IProductDal _productDal;
 
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
         }
 
-        public List<Product> GetAllByCategoryId(int v)
-        {
-            return _productDal.GetAll(p => p.CategoryID == v);
-        }
-
         public IDataResult<List<Product>> GetAll()
         {
-           if (DateTime.Now.Hour == 1)
-           {
-             return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-           }
+            if (DateTime.Now.Hour == 1)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
 
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
         }
 
-        public object GetProductDetails()
+        public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public iterator <List<Product>, GetAllByCategoryId(int id)
-        {
-            return  SuccessDataResult<List<Product>> productDal.GetAll(p => p.CategoryID == id);
-        AssemblyLoadEventArgs 
-        public IDataResult<List<Product>> GetAlllByCategoryId(int id)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryID == id));
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
-        {
-            throw new NotImplementedException();
-        }
-
-        IDataResult<List<ProductDetailDto>> IProductService.GetProductDetails()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<Product> GetById(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Add(Product product)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-        public IDataResult<List<Product>> GetByUnitPrice( decimal min, decimal max)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
@@ -80,11 +44,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
-        public IResult Add(Product product) 
+        public IResult Add(Product product)
         {
             //business codes
 
-            if (product.ProductName.Length<2)
+            if (product.ProductName.Length < 2)
             {
                 //magic string ayrı ayrı yazılması
                 return new ErrorResult(Messages.ProductNameInvalid);
@@ -96,7 +60,7 @@ namespace Business.Concrete
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductID == productId));
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductID == productId));
         }
 
         IDataResult<List<Product>> IProductService.GetAll()
