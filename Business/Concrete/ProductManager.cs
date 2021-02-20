@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -34,7 +35,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryID == id));
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
@@ -47,12 +48,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
+
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             //business codes
             //validation
-
-            ValidationTool.Validate(new ProductValidator(), product);
+            //Loglama
+            //cacheremove
+            //performance
+            //transaction
+            //yetkilendirme
 
             _productDal.Add(product);
 
@@ -61,7 +67,7 @@ namespace Business.Concrete
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductID == productId));
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
     }
 }
